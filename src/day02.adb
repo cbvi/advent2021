@@ -41,15 +41,9 @@ procedure day02 is
       begin
          Int := Long_Long_Integer'Value (Number);
          
-         if Word = "forward" then
-            Ins := Forward;
-         elsif Word = "down" then
-            Ins := Down;
-         elsif Word = "up" then
-            Ins := Up;
-         else
-            raise Oops with "Bad instruction";
-         end if;
+         Ins := Direction_Type'Value (Word);
+         
+
          
          Res.Direction := Ins;
          Res.Distance := Int;
