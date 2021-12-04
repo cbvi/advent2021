@@ -16,6 +16,88 @@ procedure day03 is
    
    package SV renames String_Vector;
    
+   function Uncommon_Culled (Vec : SV.Vector) return Binary_String
+   is
+      Zero_Vec : SV.Vector (4096);
+      One_Vec  : SV.Vector (4096);
+      New_Vec  : SV.Vector (4096);
+      Position : String_Length := 1;
+      
+      use Ada.Containers; -- need operators for Count_Type
+   begin
+      SV.Append (New_Vec, Vec);
+      
+      while True loop
+         for S of New_Vec loop
+            if S (Position) = '0' then
+               SV.Append (Zero_Vec, S);
+            else
+               SV.Append (One_Vec, S);
+            end if;
+         end loop;
+      
+         SV.Clear (New_Vec);
+      
+         if SV.Length (Zero_Vec) < SV.Length (One_Vec) then
+            SV.Append (New_Vec, Zero_Vec);
+         elsif SV.Length (Zero_Vec) = SV.Length (One_Vec) then
+            Sv.Append (New_Vec, Zero_Vec);
+         else
+            SV.Append (New_Vec, One_Vec);
+         end if;
+         
+         exit when SV.Length (New_Vec) = 1;
+         
+         Position := Position + 1;
+         
+         SV.Clear (One_Vec);
+         SV.Clear (Zero_Vec);
+      end loop;
+      
+      return SV.First_Element (New_Vec);
+   end Uncommon_Culled;
+   
+   function Common_Culled (Vec : SV.Vector) return Binary_String
+   is
+      Zero_Vec : SV.Vector (4096);
+      One_Vec  : SV.Vector (4096);
+      New_Vec  : SV.Vector (4096);
+      Position : String_Length := 1;
+      
+      use Ada.Containers; -- need operators for Count_Type
+   begin
+      SV.Append (New_Vec, Vec);
+      
+      while True loop
+         for S of New_Vec loop
+            if S (Position) = '0' then
+               SV.Append (Zero_Vec, S);
+            else
+               SV.Append (One_Vec, S);
+            end if;
+         end loop;
+      
+         SV.Clear (New_Vec);
+      
+         if SV.Length (Zero_Vec) > SV.Length (One_Vec) then
+            SV.Append (New_Vec, Zero_Vec);
+         elsif SV.Length (Zero_Vec) = SV.Length (One_Vec) then
+            Sv.Append (New_Vec, One_Vec);
+         else
+            SV.Append (New_Vec, One_Vec);
+         end if;
+         
+         exit when SV.Length (New_Vec) = 1;
+         
+         Position := Position + 1;
+         
+         SV.Clear (One_Vec);
+         SV.Clear (Zero_Vec);
+      end loop;
+      
+      return SV.First_Element (New_Vec);
+   end Common_Culled;
+   
    function Common_Bit (Vec : SV.Vector; Position : String_Length)
                         return Character
    is
@@ -78,4 +160,20 @@ begin
    IO.Put_Line (Integer'Image (Epsilon_Result));
    
    IO.Put_Line (Integer'Image (Epsilon_Result * Gamma_Result));
+   
+   declare
+      Oxygen_String : Binary_String;
+      CO2_String : Binary_String;
+      
+      Oxygen : Long_Long_Integer;
+      CO2 : Long_Long_Integer;
+   begin
+      Oxygen_String := Common_Culled (Vec);
+      CO2_String := Uncommon_Culled (Vec);
+      
+      Oxygen := Long_Long_Integer'Value ("2#" & Oxygen_String & "#");
+      CO2    := Long_Long_Integer'Value ("2#" & CO2_String & "#");
+      IO.Put_Line (Long_Long_Integer'Image (Oxygen * CO2));
+   end;
+      
 end day03;
