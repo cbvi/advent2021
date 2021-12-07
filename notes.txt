@@ -1,0 +1,18 @@
+### Day 2
+
+You can directly read types representing a type from a file with generic packages from Text_IO, eg. Integer_IO, Enumeration_IO.
+
+### Day 3
+
+You can concat the base formatters to strings : `"2#" & Oxygen_String & "#"`
+
+Current implementation isn't great, should read the integers in as integers and operate on them that way instead of parsing the strings.
+
+### Day 4, DAy 5
+
+TODO
+
+### Day 6
+
+Assumed the second part would add more attributes about the fish, so used a record and tracked each individual fish in a vector.
+Then part 2 simply increased the amount of time to simulate, which exceeded RAM at day ~160.
