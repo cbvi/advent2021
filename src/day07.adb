@@ -40,11 +40,7 @@ procedure day07 is
    begin
       for I in 0 .. 20000 loop
          for C of Crabs loop
-            if C > I then
-               Current := Current + (C - I);
-            else
-               Current := Current + (I - C);
-            end if;
+            Current := Current + abs (C - I);
          end loop;
          if Current <= Lowest then
             Lowest := Current;
