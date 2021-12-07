@@ -34,13 +34,17 @@ procedure day07 is
    
    function Lowest_Position (Crabs : CV.Vector) return Natural
    is
-      Lowest  : Natural := Natural'Last;
+      Lowest  : Long_Long_Integer := Long_Long_Integer'Last;
       Position : Natural;
-      Current : Natural := 0;
+      Current : Long_Long_Integer := 0;
+      Distance : Natural := 0;
    begin
       for I in 0 .. 20000 loop
          for C of Crabs loop
-            Current := Current + abs (C - I);
+            Distance := abs (C - I);
+            for J in 1 .. Distance loop
+               Current := Current + Long_Long_Integer (J);
+            end loop;
          end loop;
          if Current <= Lowest then
             Lowest := Current;
@@ -48,7 +52,7 @@ procedure day07 is
          end if;
          Current := 0;
       end loop;
-      IO.Put_Line (Natural'Image (Lowest));
+      IO.Put_Line (Long_Long_Integer'Image (Lowest));
       return Position;
    end Lowest_Position;
    
