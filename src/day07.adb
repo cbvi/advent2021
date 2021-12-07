@@ -39,7 +39,7 @@ procedure day07 is
       Current : Long_Long_Integer := 0;
       Distance : Natural := 0;
    begin
-      for I in 0 .. 20000 loop
+      for I in 0 .. 2000 loop
          for C of Crabs loop
             Distance := abs (C - I);
             for J in 1 .. Distance loop
