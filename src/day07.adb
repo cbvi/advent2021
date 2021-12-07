@@ -42,9 +42,8 @@ procedure day07 is
       for I in 0 .. 2000 loop
          for C of Crabs loop
             Distance := abs (C - I);
-            for J in 1 .. Distance loop
-               Current := Current + Long_Long_Integer (J);
-            end loop;
+            -- Gauss sum
+            Current := Current + Long_Long_Integer (Distance * (Distance + 1) / 2);
          end loop;
          if Current <= Lowest then
             Lowest := Current;
